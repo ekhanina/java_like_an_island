@@ -13,11 +13,11 @@ public class GroupHelper extends HelperBase {
     }
 
     public void returntoGroupPage() {
-        click(wd.findElement(By.linkText("group page")));
+        click(By.linkText("group page"));
     }
 
     public void submitGroupCreation() {
-        click(wd.findElement(By.name("submit")));
+        click(By.name("submit"));
     }
 
     public void fillGroupForm(GroupData groupData) {
@@ -27,14 +27,14 @@ public class GroupHelper extends HelperBase {
     }
 
     public void initGroupCreation() {
-        click(wd.findElement(By.name("new")));
+        click(By.name("new"));
     }
 
     public void deleteSelectedGroups() {
-        click(wd.findElement(By.name("delete")));
+        click(By.name("delete"));
     }
 
     public void selectGroup() {
-        click(wd.findElement(By.name("selected[]")));
+        click(By.name("selected[]"));
     }
 }
