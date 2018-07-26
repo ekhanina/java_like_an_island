@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class HelperBase {
+
     protected FirefoxDriver wd;
 
     public HelperBase(FirefoxDriver wd) {
@@ -22,6 +23,10 @@ public class HelperBase {
         wd.findElement(locator).sendKeys(text);
     }
 
+    public boolean selectOption(By locator) {
+        return wd.findElement(locator).isSelected();
+    }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
@@ -30,6 +35,4 @@ public class HelperBase {
             return false;
         }
     }
-
-
 }
