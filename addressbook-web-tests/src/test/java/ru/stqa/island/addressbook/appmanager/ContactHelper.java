@@ -1,7 +1,10 @@
 package ru.stqa.island.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 import ru.stqa.island.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase {
@@ -14,7 +17,7 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    public void fillContactForm(ContactData contactData) {
+    public void fillContactForm(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
@@ -29,6 +32,11 @@ public class ContactHelper extends HelperBase {
             click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
         }
         type(By.name("byear"), contactData.getYearofbirth());
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void addNewContact() {
