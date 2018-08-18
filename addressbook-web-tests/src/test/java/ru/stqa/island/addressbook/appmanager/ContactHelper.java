@@ -49,7 +49,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContact() {
-        click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
+        click(By.xpath("//input[@type='checkbox']"));
     }
 
     public void initContactModifiation() {
@@ -58,5 +58,15 @@ public class ContactHelper extends HelperBase {
 
     public void submitContactModification() {
         click(By.name("update"));
+    }
+
+    public void createContact(ContactData contact, boolean b) {
+        addNewContact();
+        fillContactForm(contact,b);
+        submitContact();
+    }
+
+    public boolean isThereaContact() {
+        return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img"));
     }
 }
