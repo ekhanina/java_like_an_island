@@ -27,7 +27,7 @@ public class ApplicationManager {
        } else if (browser.equals(org.openqa.selenium.remote.BrowserType.CHROME)) {
            wd = new ChromeDriver();
        }
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         sessionHelper = new SessionHelper(wd);
         sessionHelper.login("admin", "secret");
