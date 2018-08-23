@@ -48,11 +48,11 @@ public class ContactHelper extends HelperBase {
         wd.switchTo().alert().accept();
     }
 
-    public void selectContact() {
-        click(By.xpath("//input[@type='checkbox']"));
+    public void selectContact(int index) {
+        wd.findElements(By.xpath("//input[@type='checkbox']")).get(index).click();
     }
 
-    public void initContactModifiation() {
+    public void initContactModification() {
         click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
     }
 
