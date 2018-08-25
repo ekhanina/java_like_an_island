@@ -52,7 +52,7 @@ public class ContactHelper extends HelperBase {
         wd.findElements(By.xpath("//input[@type='checkbox']")).get(index).click();
     }
 
-    public void initContactModification() {
+    public void initContactModification(int index) {
         click(By.xpath("/html/body/div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
     }
 
