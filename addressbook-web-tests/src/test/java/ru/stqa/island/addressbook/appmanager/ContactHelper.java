@@ -77,5 +77,5 @@ public class ContactHelper extends HelperBase {
     public int getContactCount() {
         return wd.findElements(By.xpath("//input[@type='checkbox']")).size();
     }
-    
+
 }
