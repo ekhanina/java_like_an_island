@@ -64,17 +64,23 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createContact(ContactData contact, boolean b) {
+    public void create(ContactData contact, boolean b) {
         addNewContact();
         fillContactForm(contact,b);
         submitContact();
     }
 
-    public void modifyContact(int index, ContactData contact) {
+    public void modify(int index, ContactData contact) {
         initContactModification(index);
         fillContactForm(contact, false);
         submitContactModification();
     }
+
+    public void delete(int index) {
+        selectContact(index);
+        deleteSelectedContact();
+    }
+
 
     public boolean isThereaContact() {
         return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[7]/a/img"));
@@ -84,7 +90,7 @@ public class ContactHelper extends HelperBase {
         return wd.findElements(By.xpath("//input[@type='checkbox']")).size();
     }
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
