@@ -20,7 +20,7 @@ public class ContactModificationTests extends TestBase{
     public void testsContactModification() {
         List<ContactData> before = app.contact().list();
         int index = before.size() - 1;
-        ContactData contact = new ContactData().withId(before.get(index).getId()).withFirstname("Bruce").withLastname("Wayne");
+        ContactData contact = new ContactData().withId(before.get(index).getId()).withFirstname("Peter").withLastname("Parker");
         app.contact().modify(index, contact);
         app.goTo().returntoHomePage();
         List<ContactData> after = app.contact().list();
