@@ -7,7 +7,7 @@ import ru.stqa.island.addressbook.model.ContactData;
 import java.util.List;
 
 public class DeleteContactTests extends TestBase {
-    @Test
+    @Test (enabled = false)
     public void testDeleteContact() {
         if (! app.getContactHelper().isThereaContact()) {
             app.getContactHelper().createContact(new ContactData("Bruce", "Wayne", "Batman", "Gotham City, Freedom str, 1", null, "brucewayne123@gmail.com", "1982", "test1"), true);
