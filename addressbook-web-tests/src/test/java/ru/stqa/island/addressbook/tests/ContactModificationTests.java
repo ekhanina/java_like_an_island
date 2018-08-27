@@ -12,7 +12,7 @@ public class ContactModificationTests extends TestBase{
     @BeforeMethod
     public void ensurePreconditions() {
         if (app.contact().list().size() == 0) {
-            app.contact().create(new ContactData("Bruce", "Wayne", "Batman", "Gotham City, Freedom str, 1", null, "brucewayne123@gmail.com", "1982", "test1"), true);
+            app.contact().create(new ContactData().withFirstname("Bruce").withLastname("Wayne").withNickname("Batman").withAddress("Gotham City, Freedom str, 1").withPhone("").withEmail("brucewayne123@gmail.com").withYearofbirth("1982").withGroup("test1"), true);
         }
     }
 
@@ -20,7 +20,7 @@ public class ContactModificationTests extends TestBase{
     public void testsContactModification() {
         List<ContactData> before = app.contact().list();
         int index = before.size() - 1;
-        ContactData contact = new ContactData(before.get(index).getId(), "Bruce", "Wayne");
+        ContactData contact = new ContactData().withId(before.get(index).getId()).withFirstname("Bruce").withLastname("Wayne");
         app.contact().modify(index, contact);
         app.goTo().returntoHomePage();
         List<ContactData> after = app.contact().list();
