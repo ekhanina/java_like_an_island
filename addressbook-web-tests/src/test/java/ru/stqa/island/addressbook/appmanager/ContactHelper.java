@@ -8,9 +8,7 @@ import org.testng.Assert;
 import ru.stqa.island.addressbook.model.ContactData;
 import ru.stqa.island.addressbook.model.Contacts;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -28,7 +26,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("nickname"), contactData.getNickname());
         type(By.name("address"), contactData.getAddress());
         type(By.name("address"), contactData.getAddress());
-        type(By.name("mobile"), contactData.getPhone());
+        type(By.name("mobile"), contactData.getHomePhone());
         type(By.name("email"), contactData.getEmail());
         if (!selectOption(By.xpath("//div[@id='content']/form/select[1]//option[9]"))) {
             click(By.xpath("//div[@id='content']/form/select[1]//option[9]"));
@@ -110,5 +108,18 @@ public class ContactHelper extends HelperBase {
             contactCache.add(contact);
         }
         return new Contacts(contactCache);
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        initContactModificationById(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String homephone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobilephone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String workphone = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).
+                withHomePhone(homephone).withMobilePhone(mobilephone).withWorkPhone(workphone);
+
     }
 }
