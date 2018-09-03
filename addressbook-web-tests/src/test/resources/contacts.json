@@ -1,0 +1,20 @@
+[
+  {
+    "firstname": "firstname 0",
+    "lastname": "lastname 0",
+    "address": "Gotham city 0",
+    "homePhone": "+889091232310"
+  },
+  {
+    "firstname": "firstname 1",
+    "lastname": "lastname 1",
+    "address": "Gotham city 1",
+    "homePhone": "+889091232311"
+  },
+  {
+    "firstname": "firstname 2",
+    "lastname": "lastname 2",
+    "address": "Gotham city 2",
+    "homePhone": "+889091232312"
+  }
+]
