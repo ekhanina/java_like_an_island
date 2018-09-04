@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: mysql:mysql-connector-java:5.1.38">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/addressbook-web-tests/Could not resolve mysql:mysql-connector-java:5.1.38." />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
