@@ -36,12 +36,15 @@ public class ContactHelper extends HelperBase {
             click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
         }
         type(By.name("byear"), contactData.getYearofbirth());
-       /* if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }*/
-    }
+
+        /*if (creation) {
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }} else {
+                Assert.assertFalse(isElementPresent(By.name("new_group")));
+            }*/
+        }
 
     public void addNewContact() {
         click(By.linkText("add new"));
