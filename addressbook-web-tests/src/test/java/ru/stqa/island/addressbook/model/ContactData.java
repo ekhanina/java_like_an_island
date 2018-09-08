@@ -3,15 +3,20 @@ package ru.stqa.island.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import net.bytebuddy.agent.builder.AgentBuilder;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table (name = "addressbook")
 @XStreamAlias("contact")
 public class ContactData {
+    @XStreamOmitField
     @Id
     @Column (name = "id")
     private int id = Integer.MAX_VALUE;
@@ -47,11 +52,14 @@ public class ContactData {
     private String allEmails;
     @Transient
     private String yearofbirth;
-    @Transient
-    private String group;
     @Column (name = "photo")
     @Type (type = "text")
     private String photo;
+
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JoinTable (name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public File getPhoto() {
         return new File(photo);
@@ -132,11 +140,6 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
     public int getId() {
         return id;
     }
@@ -193,8 +196,8 @@ public class ContactData {
         return yearofbirth;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     @Override
