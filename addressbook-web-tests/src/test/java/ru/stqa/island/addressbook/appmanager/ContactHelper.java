@@ -20,15 +20,14 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
     }
 
-    public void fillContactForm(ContactData contactData, boolean creation) {
+    public void fillContactForm(ContactData contactData) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("lastname"), contactData.getLastname());
         type(By.name("nickname"), contactData.getNickname());
         type(By.name("address"), contactData.getAddress());
-        type(By.name("address"), contactData.getAddress());
         type(By.name("mobile"), contactData.getHomePhone());
         type(By.name("email"), contactData.getEmail());
-        attach(By.name("photo"), contactData.getPhoto());
+        //attach(By.name("photo"), contactData.getPhoto());
         if (!selectOption(By.xpath("//div[@id='content']/form/select[1]//option[9]"))) {
             click(By.xpath("//div[@id='content']/form/select[1]//option[9]"));
         }
@@ -36,11 +35,11 @@ public class ContactHelper extends HelperBase {
             click(By.xpath("//div[@id='content']/form/select[2]//option[3]"));
         }
         type(By.name("byear"), contactData.getYearofbirth());
-        if (creation) {
+       /* if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        }*/
     }
 
     public void addNewContact() {
@@ -64,16 +63,16 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void create(ContactData contact, boolean b) {
+    public void create(ContactData contact) {
         addNewContact();
-        fillContactForm(contact,b);
+        fillContactForm(contact);
         submitContact();
         contactCache = null;
     }
 
     public void modify(ContactData contact) {
         initContactModificationById(contact.getId());
-        fillContactForm(contact, false);
+        fillContactForm(contact);
         submitContactModification();
         contactCache = null;
     }
@@ -89,7 +88,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public int count() {
-        return wd.findElements(By.xpath("//input[@type='checkbox']")).size();
+        return wd.findElements((By.xpath("//tr[@name='entry']//input"))).size();
     }
 
     private Contacts contactCache = null;
