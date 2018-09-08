@@ -1,6 +1,0 @@
-5179 [main] INFO  r.s.i.addressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{id='2147483647', name='test 0'}]
-9272 [main] INFO  r.s.i.addressbook.tests.TestBase - Stop test testGroupCreation
-9272 [main] INFO  r.s.i.addressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{id='2147483647', name='test 1'}]
-11633 [main] INFO  r.s.i.addressbook.tests.TestBase - Stop test testGroupCreation
-11634 [main] INFO  r.s.i.addressbook.tests.TestBase - Start test testGroupCreation with parameters [GroupData{id='2147483647', name='test 2'}]
-14145 [main] INFO  r.s.i.addressbook.tests.TestBase - Stop test testGroupCreation
