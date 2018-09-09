@@ -1,5 +1,6 @@
 package ru.stqa.island.addressbook.appmanager;
 
+import org.hibernate.sql.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

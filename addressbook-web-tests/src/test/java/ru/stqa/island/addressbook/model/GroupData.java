@@ -32,7 +32,12 @@ public class GroupData {
     @Type (type = "text")
     private String footer;
 
-    @ManyToMany (mappedBy = "groups")
+   /* @ManyToMany (mappedBy = "groups")
+    private Set<ContactData> contacts = new HashSet<ContactData>();*/
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "group_id"), inverseJoinColumns = @JoinColumn(name = "id"))
     private Set<ContactData> contacts = new HashSet<ContactData>();
 
     public Contacts getContacts() {

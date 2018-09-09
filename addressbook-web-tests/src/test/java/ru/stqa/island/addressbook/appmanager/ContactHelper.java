@@ -4,10 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import ru.stqa.island.addressbook.model.ContactData;
 import ru.stqa.island.addressbook.model.Contacts;
-import ru.stqa.island.addressbook.model.Groups;
+import ru.stqa.island.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -67,6 +66,10 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
+    private void returnToGroupPage(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='./?group=%s']", id))).click();
+    }
+
     public void create(ContactData contact) {
         addNewContact();
         fillContactForm(contact);
@@ -85,6 +88,46 @@ public class ContactHelper extends HelperBase {
         selectContactById(contact.getId());
         deleteSelectedContact();
         contactCache = null;
+    }
+
+    public void addContactToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        addContactToGroup(group);
+        clickAddGroup();
+        contactCache = null;
+        returnToGroupPage(group.getId());
+    }
+
+    public void removeGroup(ContactData contact, GroupData groups) {
+        selectGroup(groups);
+        selectContactById(contact.getId());
+        removeGroupFromContact();
+        contactCache = null;
+        returnToGroupPage(groups.getId());
+        returnToAllGroupPage();
+    }
+
+    private void removeGroupFromContact() {
+        click(By.name("remove"));
+    }
+
+    private void returnToAllGroupPage() {
+        new Select(wd.findElement(By.name("group")))
+                .selectByVisibleText("[all]");
+    }
+
+    private void selectGroup(GroupData group) {
+        new Select(wd.findElement(By.name("group")))
+                .selectByVisibleText(group.getName());
+    }
+
+    private void addContactToGroup(GroupData group) {
+        new Select(wd.findElement(By.name("to_group")))
+                .selectByVisibleText(group.getName());
+    }
+
+    private void clickAddGroup() {
+        click(By.name("add"));
     }
 
     public boolean isThereaContact() {
