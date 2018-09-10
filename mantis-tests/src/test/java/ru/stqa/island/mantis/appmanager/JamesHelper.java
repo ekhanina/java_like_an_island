@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -161,7 +162,7 @@ public class JamesHelper {
 
     public static MailMessage toModelMail(Message m) {
         try {
-            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent(), new Date(m.getSentDate().getTime()));
         } catch (MessagingException e) {
             e.printStackTrace();
             return null;
