@@ -1,5 +1,8 @@
 package ru.stqa.island.mantis.tests;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.jayway.restassured.RestAssured;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.SkipException;
 import org.testng.annotations.AfterSuite;
@@ -29,14 +32,31 @@ public class TestBase {
         app.stop();
     }
 
-    public boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+    public boolean isIssueOpenSoap(int issueId) throws RemoteException, ServiceException, MalformedURLException {
         String status = app.soap().getBugStatus(issueId);
         System.out.println("Current status of a bug " + issueId + " is "+ status);
         return !status.equals("closed");
     }
 
-    public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
-        if (isIssueOpen(issueId)) {
+    public void skipIfNotFixedSoap(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+        if (isIssueOpenSoap(issueId)) {
+            throw new SkipException("Ignored because of issue " + issueId);
+        }
+    }
+
+    public boolean isIssueOpenRest(int issueId) {
+        boolean isIssueOpen = true;
+        RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490","");
+        String json = RestAssured.get("http://bugify.stqa.ru/api/issues/" + issueId + ".json?limit=300").asString();
+        JsonElement parsed = new JsonParser().parse(json);
+        JsonElement issues = parsed.getAsJsonObject().get("issues");
+        JsonElement state_name = issues.getAsJsonArray().get(0).getAsJsonObject().get("state_name");
+        String status = state_name.getAsString();
+        if (status.equals("Resolved")||status.equals("Closed")) isIssueOpen = false;
+        return isIssueOpen;
+    }
+    public void skipIfNotFixedRest(int issueId) {
+        if (isIssueOpenRest(issueId)) {
             throw new SkipException("Ignored because of issue " + issueId);
         }
     }
